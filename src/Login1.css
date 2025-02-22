@@ -64,3 +64,18 @@
 .signup-link a:hover {
     text-decoration: underline;
 }
+body {
+    background: linear-gradient(135deg, #007bff, #00ff88);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-container {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
