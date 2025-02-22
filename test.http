@@ -1,0 +1,47 @@
+# GET http://localhost:3000/users
+
+# GET http://localhost:3000/getusers/1
+
+# GET http://localhost:3000/getusersbyname/chayanin
+
+# POST http://localhost:8080/add_users 
+# Content-Type: application/json
+
+# {
+#     "user_name": "five",
+#     "user_pwd": "5555",
+#     "first_name": "Milan",
+#     "last_name": "Millor",
+#     "email": "mimi@gmail.com"
+# }
+
+# POST  http://localhost:8080/login
+# Content-Type: application/json
+# {
+#     "username" : "Ten" ,
+#     "password" : "8888"
+# }
+
+# POST  http://localhost:3019/add_usersdelete
+# Content-Type: application/json
+
+# {
+#     "user_name" : "peter"
+# }
+
+# GET  http://localhost:8080/users
+
+# POST http://localhost:8080/api/authen_request
+# Content-Type:application/json
+
+# {
+#    "username":"5a105e8b9d40e1329780d62ea2265d8a"
+# }
+
+POST http://localhost:8080/api/access_request 
+Content-Type:application/json
+
+{
+ "auth_signature":"092f1cb17f6d99346ba2a531e9a036ae",
+ "auth_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjVhMTA1ZThiOWQ0MGUxMzI5NzgwZDYyZWEyMjY1ZDhhIiwiaWF0IjoxNzM5NzAxOTQ0fQ.ptPxm5qTKhY80CI4hJs9YKt6DNWBgkY5TKfkgbHZNUc"
+}
