@@ -22,24 +22,82 @@ export default function Login() {
         setValidated(true);
     }
 
-    const doLogin = async () => {
-        const response = await fetch("http://localhost:8080/login", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                'Content-Type': 'application/json',
+    const getAuthenToken = async ()=>{
+        const response = await fetch("http://localhost:8080/api/authen_request",
+          {
+            method:"POST",
+            headers:{
+              Accept:"application/json",
+              'Content-Type':'application/json'
             },
             body: JSON.stringify({
-                username: username,
-                password: password,
+              username: md5(username)
             })
-        });
+          }
+        );
         const data = await response.json();
-        console.log(data);
-        if (data.result) {
-            navigate("home", { replace: false });
-        }
-    };
+        return data;
+      };
+    
+    
+      const getAcessToken = async (authToken)=>{
+        var baseString = username + "&" + md5(password);
+        var authenSignature = md5(baseString);
+        const response = await fetch("http://localhost:8080/api/access_request",
+          {
+            method:"POST",
+            headers:{
+              Accept:"application/json",
+              'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+              auth_signature:authenSignature,
+              auth_token:authToken
+            })
+          }
+        );
+        const data = await response.json();
+        return data;
+      };
+
+      const doLogin = async() => {
+        const data1 = await getAuthenToken();
+        const authToken = data1.data.auth_token
+        const data2 = await getAcessToken(authToken);
+        console.log("zzz");
+        console.log(authToken);
+        localStorage.setItem("access_token",data2.data.access_token);
+        localStorage.setItem("user_id",data2.data.account_info.user_id);
+        localStorage.setItem("user_name",data2.data.account_info.user_name);
+        localStorage.setItem("first_name",data2.data.account_info.first_name);
+        localStorage.setItem("last_name",data2.data.account_info.last_name);
+        localStorage.setItem("email",data2.data.account_info.email);
+        localStorage.setItem("role_id",data2.data.account_info.role_id);
+        localStorage.setItem("role_name",data2.data.account_info.role_name);
+        console.log("setitem");
+        console.log(localStorage.getItem("user_id"));
+        console.log(localStorage.getItem("access_token"));
+        navigate("home",{replace:false});
+      }
+      
+    // const doLogin = async () => {
+    //     const response = await fetch("http://localhost:8080/login", {
+    //         method: "POST",
+    //         headers: {
+    //             Accept: "application/json",
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //             username: username,
+    //             password: password,
+    //         })
+    //     });
+    //     const data = await response.json();
+    //     console.log(data);
+    //     if (data.result) {
+    //         navigate("home", { replace: false });
+    //     }
+    // };
 
     return (
         <div className="login-container">
