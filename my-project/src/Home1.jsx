@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { Link } from 'react-router-dom';  // นำเข้า Link เพื่อทำการเชื่อมโยงกับ route
-
+import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import "./Home1.css";
 
-const products = [
+const productsData = [
   { id: 1, name: "YONEX Astrox 99", brand: "YONEX", type_id: 1, type_name: "Racket", price: 5000, image: "/images/astrox99.jpg" },
   { id: 2, name: "VICTOR Thruster K 9900", brand: "VICTOR", type_id: 1, type_name: "Racket", price: 4500, image: "/images/thruster_k9900.jpg" },
   { id: 3, name: "Kawasaki King K8", brand: "Kawasaki", type_id: 1, type_name: "Racket", price: 3200, image: "/images/king_k8.jpg" },
@@ -37,20 +36,20 @@ const products = [
 ];
 
 function ProductList() {
+  const [products, setProducts] = useState(productsData); // ใช้ข้อมูลตัวอย่างในตัวแปร productsData
   const [filterBrand, setFilterBrand] = useState('');
   const [filterType, setFilterType] = useState('');
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(10000);
 
+  // เพิ่มสินค้าลงตะกร้า
   const addToCart = (product) => {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const productIndex = existingCart.findIndex((item) => item.id === product.id);
 
     if (productIndex !== -1) {
-      // ถ้ามีสินค้าอยู่แล้ว ให้เพิ่มจำนวน
       existingCart[productIndex].quantity += 1;
     } else {
-      // ถ้ายังไม่มี ให้เพิ่มสินค้าใหม่
       existingCart.push({ ...product, quantity: 1 });
     }
 
@@ -58,6 +57,7 @@ function ProductList() {
     alert(`เพิ่ม ${product.name} ลงตะกร้าแล้ว!`);
   };
 
+  // กรองสินค้าตามตัวกรองที่เลือก
   const filteredProducts = products.filter((product) =>
     (filterBrand === '' || product.brand === filterBrand) &&
     (filterType === '' || product.type_name === filterType) &&
@@ -67,8 +67,6 @@ function ProductList() {
 
   // ดึงข้อมูลจาก localStorage
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  
-  // คำนวณจำนวนสินค้าทั้งหมดในตะกร้า
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (

@@ -1,0 +1,127 @@
+/* รวมพื้นหลังและการจัดการกับตะกร้า */
+.cart-container {
+  background-color: #f5f5f5; /* สีพื้นหลังให้ตะกร้า */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.cart-item-left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.cart-item-image {
+  width: 80px; /* ขนาดรูปพอดี */
+  height: 80px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.cart-item-right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.quantity-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.quantity-btn:hover {
+  background-color: #45a049;
+}
+
+.remove-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background-color: #e53935;
+}
+
+.total-price {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.checkout-btn {
+  display: inline-block;
+  background-color: #2196F3;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 20px;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.checkout-btn:hover {
+  background-color: #0b7dda;
+}
+/* ปรับสไตล์ปุ่ม "กลับไปที่หน้าแรก" */
+.go-home-btn {
+  display: inline-block;
+  background-color: #ff9800; /* สีส้ม */
+  color: white;
+  padding: 10px 20px;
+  margin-top: 20px;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 5px;
+  text-align: center;
+  width: 100%;
+  max-width: 200px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.go-home-btn:hover {
+  background-color: #f57c00;
+}
