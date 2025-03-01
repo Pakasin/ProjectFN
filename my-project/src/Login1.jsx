@@ -101,7 +101,7 @@ export default function Login() {
             {error && <div className="alert alert-danger">{error}</div>} {/* แสดงข้อผิดพลาด */}
             <Form noValidate validated={validated} onSubmit={onLogin}>
                 <Form.Group className="form-group">
-                    <Form.Label>Username 123</Form.Label>
+                    <Form.Label>Username</Form.Label>
                     <Form.Control
                         required
                         type="text"
