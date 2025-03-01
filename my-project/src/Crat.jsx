@@ -1,41 +1,41 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // นำเข้า Link จาก react-router-dom
-import './Cart.css'; // นำเข้าไฟล์ CSS ที่เราเพิ่งสร้าง
+import { Link } from "react-router-dom";
+
 
 export default function Cart() {
   const [cart, setCart] = useState([]);
 
-  // โหลดข้อมูลจาก localStorage
+  // Load data from localStorage and update state
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(savedCart);
   }, []);
 
-  // ฟังก์ชันลบสินค้าจากตะกร้า
+  // Handle removing item from cart
   const removeFromCart = (productId) => {
     const updatedCart = cart.filter((item) => item.id !== productId);
-    setCart(updatedCart); // อัปเดต state ของตะกร้า
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); // เก็บข้อมูลใน localStorage
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  // ฟังก์ชันเพิ่มจำนวนสินค้าภายในตะกร้า
+  // Handle increasing item quantity
   const increaseQuantity = (productId) => {
-    const updatedCart = cart.map((item) => 
+    const updatedCart = cart.map((item) =>
       item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
     );
-    setCart(updatedCart); // อัปเดต state ของตะกร้า
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); // เก็บข้อมูลใน localStorage
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  // ฟังก์ชันลดจำนวนสินค้าภายในตะกร้า
+  // Handle decreasing item quantity
   const decreaseQuantity = (productId) => {
-    const updatedCart = cart.map((item) => 
+    const updatedCart = cart.map((item) =>
       item.id === productId && item.quantity > 1
-        ? { ...item, quantity: item.quantity - 1 } 
+        ? { ...item, quantity: item.quantity - 1 }
         : item
     );
-    setCart(updatedCart); // อัปเดต state ของตะกร้า
-    localStorage.setItem("cart", JSON.stringify(updatedCart)); // เก็บข้อมูลใน localStorage
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   return (
@@ -78,13 +78,10 @@ export default function Cart() {
               ))}
             </ul>
 
-            {/* ปุ่มไปที่ Checkout */}
-            <Link
-              to="/checkout"
-              className="checkout-btn"
-            >
+            <Link to="/cart" className="checkout-btn">
               ไปที่การชำระเงิน
             </Link>
+
           </div>
         )}
       </div>

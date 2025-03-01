@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';  // นำเข้า Link เพื่อทำการเชื่อมโยงกับ route
+
 import "./Home1.css";
 
 const products = [
@@ -63,9 +65,24 @@ function ProductList() {
     product.price <= maxPrice
   );
 
+  // ดึงข้อมูลจาก localStorage
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+  // คำนวณจำนวนสินค้าทั้งหมดในตะกร้า
+  const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <div className="home-container">
       <h1 className="home-title">เลือกซื้ออุปกรณ์สำหรับกีฬาแบดมินตัน</h1>
+
+      {/* ปุ่มตะกร้า */}
+      <div className="cart-button-container">
+        <Link to="/cart" className="cart-btn">
+          <button className="cart-button">
+            ตะกร้าสินค้า ({cartItemCount})
+          </button>
+        </Link>
+      </div>
 
       <div className="filter-container">
         <select onChange={(e) => setFilterBrand(e.target.value)} className="filter-select">
@@ -97,7 +114,9 @@ function ProductList() {
               <h2 className="product-name">{product.name}</h2>
               <p className="product-info">{product.brand} - {product.type_name}</p>
               <p className="product-price">฿{product.price}</p>
-              <button className="add-to-cart-btn" onClick={() => addToCart(product)}>เพิ่มลงตะกร้า</button>
+              <button className="add-to-cart-btn" onClick={() => addToCart(product)}>
+                เพิ่มลงตะกร้า
+              </button>
             </div>
           ))}
         </div>

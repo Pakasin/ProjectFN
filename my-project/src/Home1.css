@@ -96,3 +96,37 @@
   color: #666;
   margin-top: 20px;
 }
+/* ปุ่มตะกร้าสินค้า */
+.cart-button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.cart-btn {
+  text-decoration: none;
+}
+
+.cart-button {
+  background-color: #007bff; /* สีพื้นหลัง */
+  color: white; /* สีตัวอักษร */
+  border: none; /* ไม่มีขอบ */
+  border-radius: 50px; /* มุมโค้ง */
+  padding: 12px 30px; /* ขนาดของปุ่ม */
+  font-size: 16px; /* ขนาดตัวอักษร */
+  font-weight: bold; /* ตัวอักษรหนา */
+  transition: all 0.3s ease; /* การเปลี่ยนแปลงที่นุ่มนวล */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* เงาใต้ปุ่ม */
+}
+
+.cart-button:hover {
+  background-color: #0056b3; /* สีพื้นหลังเมื่อ hover */
+  transform: translateY(-2px); /* ขยับปุ่มขึ้นเล็กน้อย */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* เงาที่เด่นชัดขึ้นเมื่อ hover */
+}
+
+.cart-button:focus {
+  outline: none; /* เอาเส้นขอบออกเมื่อ focus */
+}
+
+
