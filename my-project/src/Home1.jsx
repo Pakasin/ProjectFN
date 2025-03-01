@@ -1,107 +1,105 @@
 import { useState, useEffect } from "react";
-import './Home1.css';
+import "./Home1.css";
 
-export default function Home1() {
-  const [products, setProducts] = useState([]);
-  const [filterBrand, setFilterBrand] = useState("");
+const products = [
+  { id: 1, name: "YONEX Astrox 99", brand: "YONEX", type_id: 1, type_name: "Racket", price: 5000, image: "/images/astrox99.jpg" },
+  { id: 2, name: "VICTOR Thruster K 9900", brand: "VICTOR", type_id: 1, type_name: "Racket", price: 4500, image: "/images/thruster_k9900.jpg" },
+  { id: 3, name: "Kawasaki King K8", brand: "Kawasaki", type_id: 1, type_name: "Racket", price: 3200, image: "/images/king_k8.jpg" },
+  { id: 4, name: "YONEX Nanoflare 700", brand: "YONEX", type_id: 1, type_name: "Racket", price: 4800, image: "/images/nanoflare700.jpg" },
+  { id: 5, name: "VICTOR Auraspeed 90K", brand: "VICTOR", type_id: 1, type_name: "Racket", price: 4600, image: "/images/auraspeed90k.jpg" },
+  { id: 6, name: "YONEX Duora 10", brand: "YONEX", type_id: 1, type_name: "Racket", price: 5200, image: "/images/duora10.jpg" },
+  { id: 7, name: "VICTOR Brave Sword 12", brand: "VICTOR", type_id: 1, type_name: "Racket", price: 4700, image: "/images/bravesword12.jpg" },
+  { id: 8, name: "Kawasaki Honor S6", brand: "Kawasaki", type_id: 1, type_name: "Racket", price: 3300, image: "/images/honors6.jpg" },
+  { id: 9, name: "YONEX Voltric Z Force II", brand: "YONEX", type_id: 1, type_name: "Racket", price: 5600, image: "/images/voltriczforce2.jpg" },
+  { id: 10, name: "VICTOR Hypernano X 900", brand: "VICTOR", type_id: 1, type_name: "Racket", price: 4800, image: "/images/hypernanox900.jpg" },
+  { id: 11, name: "Kawasaki Power Control X", brand: "Kawasaki", type_id: 1, type_name: "Racket", price: 3500, image: "/images/powercontrolx.jpg" },
+  { id: 12, name: "YONEX ArcSaber 11", brand: "YONEX", type_id: 1, type_name: "Racket", price: 5400, image: "/images/arcsaber11.jpg" },
+  { id: 13, name: "YONEX Aerosensa 50", brand: "YONEX", type_id: 2, type_name: "Shuttlecock", price: 1200, image: "/images/aerosensa50.jpg" },
+  { id: 14, name: "VICTOR Master Ace", brand: "VICTOR", type_id: 2, type_name: "Shuttlecock", price: 1300, image: "/images/masterace.jpg" },
+  { id: 15, name: "Kawasaki Shuttle", brand: "Kawasaki", type_id: 2, type_name: "Shuttlecock", price: 1000, image: "/images/kawasaki_shuttle.jpg" },
+  { id: 16, name: "VICTOR Power Cushion 65Z", brand: "VICTOR", type_id: 3, type_name: "Shoes", price: 4100, image: "/images/cushion65z.jpg" },
+  { id: 17, name: "VICTOR P9200III", brand: "VICTOR", type_id: 3, type_name: "Shoes", price: 4200, image: "/images/victor_p9200iii.jpg" },
+  { id: 18, name: "Kawasaki Court Control", brand: "Kawasaki", type_id: 3, type_name: "Shoes", price: 3800, image: "/images/kawasaki_shoes.jpg" },
+  { id: 19, name: "YONEX BG66 Ultimax", brand: "YONEX", type_id: 4, type_name: "String", price: 250, image: "/images/bg66ultimax.jpg" },
+  { id: 20, name: "VICTOR VBS-68", brand: "VICTOR", type_id: 4, type_name: "String", price: 550, image: "/images/vbs68.jpg" },
+  { id: 21, name: "Kawasaki Nano String", brand: "Kawasaki", type_id: 4, type_name: "String", price: 480, image: "/images/kawasaki_string.jpg" },
+  { id: 22, name: "YONEX Aerosensa 40", brand: "YONEX", type_id: 2, type_name: "Shuttlecock", price: 1100, image: "/images/aerosensa40.jpg" },
+  { id: 23, name: "VICTOR Gold Champion", brand: "VICTOR", type_id: 2, type_name: "Shuttlecock", price: 1250, image: "/images/goldchampion.jpg" },
+  { id: 24, name: "Kawasaki Shuttle 500", brand: "Kawasaki", type_id: 2, type_name: "Shuttlecock", price: 1000, image: "/images/shuttle500.jpg" },
+  { id: 25, name: "YONEX Power Cushion 88 Dial", brand: "YONEX", type_id: 3, type_name: "Shoes", price: 4200, image: "/images/cushion88dial.jpg" },
+  { id: 26, name: "VICTOR S821I", brand: "VICTOR", type_id: 3, type_name: "Shoes", price: 4300, image: "/images/s821i.jpg" },
+  { id: 27, name: "Kawasaki Pro Speed", brand: "Kawasaki", type_id: 3, type_name: "Shoes", price: 3900, image: "/images/prospeed.jpg" },
+  { id: 28, name: "YONEX BG80 Power", brand: "YONEX", type_id: 4, type_name: "String", price: 550, image: "/images/bg80power.jpg" },
+  { id: 29, name: "VICTOR VBS-63", brand: "VICTOR", type_id: 4, type_name: "String", price: 500, image: "/images/vbs63.jpg" },
+  { id: 30, name: "Kawasaki Super Tension", brand: "Kawasaki", type_id: 4, type_name: "Racket", price: 4400, image: "/images/supertension.jpg" },
+];
+
+function ProductList() {
+  const [filterBrand, setFilterBrand] = useState('');
+  const [filterType, setFilterType] = useState('');
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(10000);
-  const [loading, setLoading] = useState(true); // เพิ่ม state สำหรับ loading
-  const [error, setError] = useState(""); // เพิ่ม state สำหรับข้อผิดพลาด
 
-  useEffect(() => {
-    // จำลองการโหลดข้อมูลจาก API
-    const fetchProducts = async () => {
-      try {
-        const fetchedProducts = [
-          { id: 1, name: "YONEX Astrox 99", brand: "YONEX", price: 5000, image: "astrox99.jpg" },
-          { id: 2, name: "VICTOR Thruster K 9900", brand: "VICTOR", price: 4500, image: "thruster_k9900.jpg" },
-          { id: 3, name: "Kawasaki King K8", brand: "Kawasaki", price: 3200, image: "king_k8.jpg" },
-          { id: 4, name: "YONEX Nanoflare 700", brand: "YONEX", price: 4800, image: "nanoflare700.jpg" },
-          { id: 5, name: "VICTOR Auraspeed 90K", brand: "VICTOR", price: 4600, image: "auraspeed90k.jpg" },
-          { id: 6, name: "YONEX Duora 10", brand: "YONEX", price: 5200, image: "duora10.jpg" },
-          { id: 7, name: "VICTOR Brave Sword 12", brand: "VICTOR", price: 4700, image: "bravesword12.jpg" },
-          { id: 8, name: "Kawasaki Honor S6", brand: "Kawasaki", price: 3300, image: "honors6.jpg" },
-          { id: 9, name: "YONEX Voltric Z Force II", brand: "YONEX", price: 5600, image: "voltriczforce2.jpg" },
-          { id: 10, name: "VICTOR Hypernano X 900", brand: "VICTOR", price: 4800, image: "hypernanox900.jpg" },
-          { id: 11, name: "Kawasaki Power Control X", brand: "Kawasaki", price: 3500, image: "powercontrolx.jpg" },
-          { id: 12, name: "YONEX ArcSaber 11", brand: "YONEX", price: 5400, image: "arcsaber11.jpg" },
-        ];
-        setProducts(fetchedProducts);
-      } catch (err) {
-        setError("Failed to fetch products. Please try again later."); // แสดงข้อผิดพลาด
-        console.error(err);
-      } finally {
-        setLoading(false); // หยุด loading
-      }
-    };
+  const addToCart = (product) => {
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const productIndex = existingCart.findIndex((item) => item.id === product.id);
 
-    fetchProducts();
-  }, []);
+    if (productIndex !== -1) {
+      // ถ้ามีสินค้าอยู่แล้ว ให้เพิ่มจำนวน
+      existingCart[productIndex].quantity += 1;
+    } else {
+      // ถ้ายังไม่มี ให้เพิ่มสินค้าใหม่
+      existingCart.push({ ...product, quantity: 1 });
+    }
 
-  const filteredProducts = products.filter(
-    (product) =>
-      (filterBrand === "" || product.brand === filterBrand) &&
-      product.price >= minPrice &&
-      product.price <= maxPrice
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+    alert(`เพิ่ม ${product.name} ลงตะกร้าแล้ว!`);
+  };
+
+  const filteredProducts = products.filter((product) =>
+    (filterBrand === '' || product.brand === filterBrand) &&
+    (filterType === '' || product.type_name === filterType) &&
+    product.price >= minPrice &&
+    product.price <= maxPrice
   );
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-center my-4">เลือกซื้อไม้แบดมินตัน</h1>
-      <div className="flex justify-center gap-4 mb-4">
-        <select
-          onChange={(e) => setFilterBrand(e.target.value)}
-          className="p-2 border rounded"
-        >
+      <h1 className="text-2xl font-bold text-center my-4">เลือกซื้ออุปกรณ์สำหรับกีฬาแบดมินตัน</h1>
+
+      <div className="filter-container">
+        <select onChange={(e) => setFilterBrand(e.target.value)} className="brand-button">
           <option value="">ทุกแบรนด์</option>
           <option value="YONEX">YONEX</option>
           <option value="VICTOR">VICTOR</option>
           <option value="Kawasaki">Kawasaki</option>
         </select>
-        <input
-          type="number"
-          placeholder="ราคาขั้นต่ำ"
-          value={minPrice}
-          onChange={(e) => setMinPrice(Number(e.target.value))}
-          className="p-2 border rounded w-24"
-          min="0"
-        />
-        <input
-          type="number"
-          placeholder="ราคาสูงสุด"
-          value={maxPrice}
-          onChange={(e) => setMaxPrice(Number(e.target.value))}
-          className="p-2 border rounded w-24"
-          min="0"
-        />
+
+        <select onChange={(e) => setFilterType(e.target.value)} className="brand-button">
+          <option value="">ทุกประเภท</option>
+          <option value="Racket">Racket</option>
+          <option value="Shuttlecock">Shuttlecock</option>
+          <option value="Shoes">Shoes</option>
+          <option value="String">String</option>
+        </select>
+
+        <input type="number" placeholder="ราคาขั้นต่ำ" className="filter-input" value={minPrice} onChange={(e) => setMinPrice(Number(e.target.value))} />
+        <input type="number" placeholder="ราคาสูงสุด" className="filter-input" value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))} />
       </div>
 
-      {loading ? (
-        <p className="text-center">กำลังโหลดข้อมูล...</p>
-      ) : error ? (
-        <p className="text-center text-red-500">{error}</p>
-      ) : filteredProducts.length === 0 ? (
-        <p className="text-center">ไม่พบสินค้าที่ตรงกับเงื่อนไขการค้นหา</p>
-      ) : (
-        <div className="grid grid-cols-3 gap-4 p-4">
-          {filteredProducts.map((product) => (
-            <div key={product.id} className="border p-4 rounded-lg shadow-lg text-center">
-              <img
-                src={`/images/${product.image}`}
-                alt={product.name}
-                className="w-full h-40 object-cover mb-2"
-              />
-              <h2 className="text-xl font-semibold">{product.name}</h2>
-              <p className="text-gray-700">ยี่ห้อ: {product.brand}</p>
-              <p className="text-red-500 font-bold">฿{product.price}</p>
-              <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                เพิ่มลงตะกร้า
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="products-grid">
+        {filteredProducts.map((product) => (
+          <div key={product.id} className="product-card">
+            <img src={product.image} alt={product.name} />
+            <h2>{product.name}</h2>
+            <p>{product.brand} - {product.type_name}</p>
+            <p className="text-red-500 font-bold">฿{product.price}</p>
+            <button className="add-to-cart-btn" onClick={() => addToCart(product)}>เพิ่มลงตะกร้า</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
+
+export default ProductList;
