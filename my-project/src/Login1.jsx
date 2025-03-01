@@ -3,47 +3,34 @@ import { Navbar, Nav, Modal, Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
+import { Autoplay } from 'swiper/modules';
 import './Login1.css';
 
-const products = [
-  { id: 1, name: "YONEX Astrox 99", image: "/images/astrox99.jpg" },
-  { id: 2, name: "VICTOR Thruster K 9900", image: "/images/thruster_k9900.jpg" },
-  { id: 3, name: "Kawasaki King K8", image: "/images/king_k8.jpg" },
+const images = [
+    { id: 1, src: '/images/logo_2025_webp.webp', alt: 'Slide 1' },
+  { id: 2, src: '/images/m5vmkrfrizitP4WQN3e-o.jpg', alt: 'Slide 2' },
+  { id: 3, src: '/images/fantome.webp', alt: 'Slide 3' },
+  { id: 4, src: '/images/maxresdefault.jpg', alt: 'Slide 4' },
+  { id: 5, src: '/images/victor-auraspeed-100x-ultra.webp', alt: 'Slide 5' },
 ];
 
-const getAuthenToken = async () => {
-  // ตัวอย่างการเรียก API เพื่อรับ Token
-  const response = await fetch('https://api.example.com/auth', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ username, password }),
-  });
-  return response.json();
-};
-
-const getAcessToken = async (authToken) => {
-  // ตัวอย่างการเรียก API เพื่อรับ Access Token
-  const response = await fetch('https://api.example.com/access', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${authToken}`,
-    },
-  });
-  return response.json();
-};
-
 export default function Login1() {
-    const [show, setShow] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+    const [showRegister, setShowRegister] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleCloseLogin = () => setShowLogin(false);
+    const handleShowLogin = () => setShowLogin(true);
+
+    const handleCloseRegister = () => setShowRegister(false);
+    const handleShowRegister = () => setShowRegister(true);
 
     const onLogin = async (event) => {
         event.preventDefault();
@@ -51,16 +38,52 @@ export default function Login1() {
         setError("");
 
         try {
-            const authTokenData = await getAuthenToken();
-            if (!authTokenData.data.auth_token) throw new Error("ไม่สามารถรับ Token ได้");
+            const response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
 
-            const accessTokenData = await getAcessToken(authTokenData.data.auth_token);
-            if (!accessTokenData.data.access_token) throw new Error("ไม่สามารถเข้าสู่ระบบได้");
+            const data = await response.json();
+            if (!data.result) throw new Error(data.message);
 
-            localStorage.setItem("access_token", accessTokenData.data.access_token);
-            localStorage.setItem("user_name", username);
-            handleClose();
+            alert("เข้าสู่ระบบสำเร็จ");
+            handleCloseLogin();
             navigate("/home");
+        } catch (error) {
+            setError("เกิดข้อผิดพลาด: " + error.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const onRegister = async (event) => {
+        event.preventDefault();
+        setIsLoading(true);
+        setError("");
+
+        try {
+            const response = await fetch('http://localhost:8080/Signup1', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user_name: username,
+                    user_pwd: password,
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email,
+                }),
+            });
+
+            const data = await response.json();
+            if (!data.result) throw new Error(data.message);
+
+            alert("สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ");
+            handleCloseRegister();
         } catch (error) {
             setError("เกิดข้อผิดพลาด: " + error.message);
         } finally {
@@ -71,17 +94,19 @@ export default function Login1() {
     return (
         <>
             <Navbar bg="dark" expand="lg" variant="dark" className="custom-navbar">
-                <Navbar.Brand href="/">FN BADMINTONSHOP</Navbar.Brand>
+                <Navbar.Brand href="/">🏸 ร้านขายไม้แบดมินตัน</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
                         <Nav.Link href="/">🏠 หน้าหลัก</Nav.Link>
-                        <Nav.Link onClick={handleShow} className="login-button">🔑 เข้าสู่ระบบ</Nav.Link>
+                        <Nav.Link onClick={handleShowRegister} className="register-button">📝 สมัครสมาชิก</Nav.Link>
+                        <Nav.Link onClick={handleShowLogin} className="login-button">🔑 เข้าสู่ระบบ</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
 
-            <Modal show={show} onHide={handleClose} centered className="custom-modal">
+            {/* Modal สำหรับการเข้าสู่ระบบ */}
+            <Modal show={showLogin} onHide={handleCloseLogin} centered className="custom-modal">
                 <Modal.Header closeButton>
                     <Modal.Title>🔐 เข้าสู่ระบบ</Modal.Title>
                 </Modal.Header>
@@ -103,24 +128,68 @@ export default function Login1() {
                 </Modal.Body>
             </Modal>
 
+            {/* Modal สำหรับการสมัครสมาชิก */}
+            <Modal show={showRegister} onHide={handleCloseRegister} centered className="custom-modal">
+                <Modal.Header closeButton>
+                    <Modal.Title>📝 สมัครสมาชิก</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    <Form onSubmit={onRegister}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>ชื่อผู้ใช้</Form.Label>
+                            <Form.Control type="text" placeholder="ชื่อผู้ใช้" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>รหัสผ่าน</Form.Label>
+                            <Form.Control type="password" placeholder="รหัสผ่าน" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>ชื่อ</Form.Label>
+                            <Form.Control type="text" placeholder="ชื่อ" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>นามสกุล</Form.Label>
+                            <Form.Control type="text" placeholder="นามสกุล" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>อีเมล</Form.Label>
+                            <Form.Control type="email" placeholder="อีเมล" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        </Form.Group>
+                        <Button variant="primary" type="submit" disabled={isLoading} className="login-submit-button">
+                            {isLoading ? "กำลังสมัครสมาชิก..." : "สมัครสมาชิก"}
+                        </Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+
+            {/* สไลด์อัตโนมัติ */}
             <div className="login-slider">
-                <h2 className="slider-title">🏆 สินค้าแนะนำ</h2>
-                <Swiper spaceBetween={30} slidesPerView={3} navigation pagination={{ clickable: true }} loop={true} autoplay={{ delay: 3000 }} className="swiper-container">
-                    {products.map((product) => (
-                        <SwiperSlide key={product.id}>
+                <Swiper
+                    spaceBetween={30}
+                    slidesPerView={1}
+                    loop={true}
+                    autoplay={{
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    }}
+                    modules={[Autoplay]}
+                    className="swiper-container"
+                >
+                    {images.map((image) => (
+                        <SwiperSlide key={image.id}>
                             <div className="slide-content">
-                                <img src={product.image} alt={product.name} className="slide-image" />
-                                <p className="slide-text">{product.name}</p>
+                                <img src={image.src} alt={image.alt} className="slide-image" />
                             </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>
             </div>
 
+
             <div className="custom-support">
             <p>📧 ติดต่อ: support@badmintonstore.com | ☎️ 081-234-5678</p>
             <p>© 2025 ร้านขายไม้แบดมินตัน. All Rights Reserved.</p>
-                <p>📞 ติดต่อเรา: 081-234-5678</p>
             </div>
         </>
     );
