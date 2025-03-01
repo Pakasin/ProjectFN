@@ -16,7 +16,7 @@ var pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'User-data'
+    database: 'my-badminton-shop'
 });
 
 app.get('/getusers/:userID', (req, res) => {

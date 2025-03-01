@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./Home1.css";
 
 const products = [
@@ -64,18 +64,18 @@ function ProductList() {
   );
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold text-center my-4">เลือกซื้ออุปกรณ์สำหรับกีฬาแบดมินตัน</h1>
+    <div className="home-container">
+      <h1 className="home-title">เลือกซื้ออุปกรณ์สำหรับกีฬาแบดมินตัน</h1>
 
       <div className="filter-container">
-        <select onChange={(e) => setFilterBrand(e.target.value)} className="brand-button">
+        <select onChange={(e) => setFilterBrand(e.target.value)} className="filter-select">
           <option value="">ทุกแบรนด์</option>
           <option value="YONEX">YONEX</option>
           <option value="VICTOR">VICTOR</option>
           <option value="Kawasaki">Kawasaki</option>
         </select>
 
-        <select onChange={(e) => setFilterType(e.target.value)} className="brand-button">
+        <select onChange={(e) => setFilterType(e.target.value)} className="filter-select">
           <option value="">ทุกประเภท</option>
           <option value="Racket">Racket</option>
           <option value="Shuttlecock">Shuttlecock</option>
@@ -87,17 +87,21 @@ function ProductList() {
         <input type="number" placeholder="ราคาสูงสุด" className="filter-input" value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))} />
       </div>
 
-      <div className="products-grid">
-        {filteredProducts.map((product) => (
-          <div key={product.id} className="product-card">
-            <img src={product.image} alt={product.name} />
-            <h2>{product.name}</h2>
-            <p>{product.brand} - {product.type_name}</p>
-            <p className="text-red-500 font-bold">฿{product.price}</p>
-            <button className="add-to-cart-btn" onClick={() => addToCart(product)}>เพิ่มลงตะกร้า</button>
-          </div>
-        ))}
-      </div>
+      {filteredProducts.length === 0 ? (
+        <p className="no-products">ไม่พบสินค้าที่ตรงกับเงื่อนไขการค้นหา</p>
+      ) : (
+        <div className="products-grid">
+          {filteredProducts.map((product) => (
+            <div key={product.id} className="product-card">
+              <img src={product.image} alt={product.name} className="product-image" />
+              <h2 className="product-name">{product.name}</h2>
+              <p className="product-info">{product.brand} - {product.type_name}</p>
+              <p className="product-price">฿{product.price}</p>
+              <button className="add-to-cart-btn" onClick={() => addToCart(product)}>เพิ่มลงตะกร้า</button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
