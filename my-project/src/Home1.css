@@ -1,45 +1,61 @@
 /* การจัดกริดสินค้า */
 .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    justify-items: center; /* จัดกลางไอเทมในกริด */
-  }
-  
-  /* การ์ดสินค้า */
-  .product-card {
-    background: white;
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* ทำให้ทุกอย่างอยู่กลางการ์ด */
-    justify-content: space-between; /* จัดให้มีระยะห่างระหว่างรูปภาพและปุ่ม */
-  }
-  
-  /* รูปภาพสินค้า */
-  .product-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover; /* ใช้ให้รูปเต็มกรอบ */
-    border-radius: 8px;
-    margin-bottom: 16px; /* เพิ่มช่องว่างระหว่างรูปภาพและข้อความ */
-  }
-  
-  /* ปุ่ม 'เพิ่มลงตะกร้า' */
-  .add-to-cart-btn {
-    background-color: #2563eb;
-    color: white;
-    padding: 10px 14px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-    align-self: center; /* จัดปุ่มให้อยู่กลาง */
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center; /* จัดกลางไอเทมในกริด */
+}
+
+/* การ์ดสินค้า */
+.product-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ทำให้ทุกอย่างอยู่กลางการ์ด */
+  justify-content: space-between; /* จัดให้มีระยะห่างระหว่างรูปภาพและปุ่ม */
+}
+
+/* รูปภาพสินค้า */
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover; /* ใช้ให้รูปเต็มกรอบ */
+  border-radius: 8px;
+  margin-bottom: 16px; /* เพิ่มช่องว่างระหว่างรูปภาพและข้อความ */
+}
+
+/* ปุ่ม 'เพิ่มลงตะกร้า' */
+.add-to-cart-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  align-self: center; /* จัดปุ่มให้อยู่กลาง */
+}
+
+/* รูปภาพสินค้า */
+.product-card img {
+  width: 100%;
+  height: 200px; /* ปรับให้สูงขึ้นเพื่อให้รูปภาพมองเห็นได้เต็ม */
+  object-fit: contain; /* ใช้ contain เพื่อให้รูปภาพอยู่ในกรอบโดยไม่ตัด */
+  border-radius: 8px;
+  margin-bottom: 16px; /* เพิ่มช่องว่างระหว่างรูปภาพและข้อความ */
+}
+
+.cart-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 100;
+}
