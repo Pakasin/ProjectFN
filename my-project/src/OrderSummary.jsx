@@ -1,74 +1,44 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Or.css";
+import React, { useEffect, useState } from 'react';
 
-export default function OrderSummary() {
+const OrderSummary = () => {
   const [orderDetails, setOrderDetails] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const storedOrderDetails = JSON.parse(localStorage.getItem("orderDetails"));
-    console.log("Stored Order Details:", storedOrderDetails);
+    const savedOrderDetails = JSON.parse(localStorage.getItem('orderDetails'));
+    setOrderDetails(savedOrderDetails);
+  }, []);
 
-    if (
-      storedOrderDetails &&
-      storedOrderDetails.cart &&
-      storedOrderDetails.cart.length > 0 &&
-      storedOrderDetails.totalAmount
-    ) {
-      setOrderDetails(storedOrderDetails);
-    } else {
-      alert("ไม่พบข้อมูลการสั่งซื้อหรือไม่มีสินค้าที่สั่ง");
-      navigate("/");  // เปลี่ยนเส้นทางไปหน้าแรก
-    }
-  }, [navigate]);
+  if (!orderDetails) {
+    return <div>ข้อมูลคำสั่งซื้อไม่พบ</div>;
+  }
 
-  const cancelOrder = () => {
-    localStorage.removeItem("orderDetails");
-    alert("การสั่งซื้อถูกยกเลิกแล้ว");
-    navigate("/");  // กลับไปหน้าแรก
-  };
-
-  const goToProducts = () => {
-    navigate("/home");
-  };
-
-  if (!orderDetails) return <div>กำลังโหลด...</div>;
+  const { name, address, postalCode, phone, cart, totalAmount } = orderDetails;
 
   return (
     <div className="order-summary-container">
-      <h1>สรุปการสั่งซื้อ</h1>
+      <h1>สรุปคำสั่งซื้อ</h1>
       <div className="order-details">
         <h2>ข้อมูลผู้สั่งซื้อ</h2>
-        <p>ชื่อ: {orderDetails.name}</p>
-        <p>ที่อยู่: {orderDetails.address}</p>
-        <p>รหัสไปรษณีย์: {orderDetails.postalCode}</p>
-        <p>เบอร์โทรศัพท์: {orderDetails.phone}</p>
+        <p>ชื่อ: {name}</p>
+        <p>ที่อยู่: {address}</p>
+        <p>รหัสไปรษณีย์: {postalCode}</p>
+        <p>เบอร์โทรศัพท์: {phone}</p>
 
-        <h2>รายการสินค้า</h2>
-        {orderDetails.cart && orderDetails.cart.length > 0 ? (
-          orderDetails.cart.map((item) => (
-            <div key={item.id} className="order-item">
-              <img src={item.image} alt={item.name} className="product-image" />
-              <div className="product-details">
-                <h3>{item.name}</h3>
-                <p>฿{item.price} x {item.quantity}</p>
-                <p>รวม: ฿{item.price * item.quantity}</p>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div>ไม่พบรายการสินค้า</div>
-        )}
+        <h3>รายการสินค้า</h3>
+        <ul>
+          {cart.map((item) => (
+            <li key={item.id}>
+              {item.name} - ฿{item.price} x {item.quantity} = ฿{item.price * item.quantity}
+            </li>
+          ))}
+        </ul>
 
-        <h3>ราคารวมทั้งหมด: ฿{orderDetails.totalAmount}</h3>
-      </div>
-      <div className="cancel-order">
-        <button onClick={cancelOrder}>ยกเลิกการสั่งซื้อ</button>
-      </div>
-      <div className="go-to-products">
-        <button onClick={goToProducts}>กลับไปดูสินค้า</button>
+        <div className="total">
+          <strong>รวมทั้งหมด: ฿{totalAmount}</strong>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default OrderSummary;

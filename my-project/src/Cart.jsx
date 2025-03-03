@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Ch.css";
+import "./Ch.css"; // ปรับให้ใช้ CSS ที่เหมาะสม
 
-export default function Checkout() {
+export default function Cart() {
   const [cart, setCart] = useState([]);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -12,10 +12,15 @@ export default function Checkout() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // ดึงข้อมูลตะกร้าจาก localStorage หรือเซ็ตเป็นอาร์เรย์ว่างถ้าไม่มีข้อมูล
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(savedCart);
-    const total = savedCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    setTotalAmount(total);
+    
+    if (savedCart.length > 0) {
+      // คำนวณราคาสินค้ารวมในตะกร้า
+      const total = savedCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      setTotalAmount(total);
+    }
   }, []);
 
   const updateCartTotal = (updatedCart) => {
@@ -53,6 +58,7 @@ export default function Checkout() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // ตรวจสอบข้อมูลที่กรอก
     if (!name || !address || !phone || !postalCode) {
       alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
       return;
@@ -60,6 +66,13 @@ export default function Checkout() {
 
     if (cart.length === 0) {
       alert("ตะกร้าสินค้าไม่มีสินค้า");
+      return;
+    }
+
+    // ตรวจสอบหมายเลขโทรศัพท์ที่กรอก
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+      alert("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง");
       return;
     }
 
@@ -89,7 +102,7 @@ export default function Checkout() {
         if (data.result) {
           alert("การสั่งซื้อสำเร็จ! ขอบคุณที่สั่งซื้อสินค้ากับเรา");
           localStorage.removeItem("cart"); // ลบข้อมูลใน Local Storage
-          navigate("/ordersummary");
+          navigate("/order-summary");
         } else {
           alert("เกิดข้อผิดพลาด: " + data.message);
         }
@@ -98,12 +111,11 @@ export default function Checkout() {
         console.error("Error during the request:", error);
         alert("เกิดข้อผิดพลาดในการติดต่อกับเซิร์ฟเวอร์");
       });
-
   };
 
   return (
-    <div className="checkout-container">
-      <h1 className="title">สรุปคำสั่งซื้อ</h1>
+    <div className="cart-container">
+      <h1>ตะกร้าสินค้า</h1>
       <div className="cart-list">
         {cart.length === 0 ? (
           <div className="empty-cart-message">
