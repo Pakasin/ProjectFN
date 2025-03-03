@@ -6,7 +6,6 @@ import Login1 from './Login1';
 import Home1 from './Home1';
 import Signup1 from './Signup1';
 import Crat from './Crat';  // ไฟล์ชื่อ Crat.jsx
-import Checkout from './Checkout';
 import OrderSummary from './OrderSummary';
 
 // สร้าง root element
@@ -21,7 +20,6 @@ root.render(
         <Route path="/home" element={<Home1 />} />
         <Route path="/signup" element={<Signup1 />} />
         <Route path="/Cart" element={<Crat />} /> 
-        <Route path="/Checkout" element={<Checkout />} />
         <Route path="/OrderSummary" element={<OrderSummary />} />
 
 
