@@ -21,31 +21,36 @@ export default function Checkout() {
   }, []);
 
   // Handle form submission for checkout
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!name || !address || !phone || !postalCode) {
-      alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
-      return;
-    }
-
-    const orderDetails = {
-      name,
-      address,
-      postalCode,
-      phone,
-      cart,
-      totalAmount,
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    const payload = {
+      // ตรวจสอบข้อมูลที่ส่งไปให้ครบถ้วน
+      cartItems: cartItems,
+      totalPrice: totalPrice,
+      // อาจจะมีข้อมูลเพิ่มเติมที่ต้องส่ง
     };
-
-    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
-
-    setTimeout(() => {
-      alert("การสั่งซื้อสำเร็จ! ขอบคุณที่สั่งซื้อสินค้ากับเรา");
-      localStorage.removeItem("cart");
-      navigate("/ordersummary");  // Navigate to order summary page
-    }, 2000);
+  
+    try {
+      const response = await fetch('http://localhost:8080/api/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+      // ดำเนินการหลังจากส่งข้อมูลสำเร็จ
+    } catch (error) {
+      console.error('Error during checkout:', error);
+    }
   };
+  
 
   return (
     <div className="checkout-container">
