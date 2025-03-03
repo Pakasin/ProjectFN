@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Alert } from 'react-bootstrap';
 
 const LoginModal = ({ show, onHide, onLogin, isLoading, error }) => {
-    const [username, setUsername] = useState(''); // เปลี่ยนจาก email เป็น username
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const formData = { username, password }; // ส่ง username แทน email
-        onLogin(formData); 
+        onLogin({ username, password });
     };
 
     return (
@@ -17,29 +16,26 @@ const LoginModal = ({ show, onHide, onLogin, isLoading, error }) => {
                 <Modal.Title>เข้าสู่ระบบ</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="formusername">
-                        <Form.Label>Username</Form.Label>
+                    <Form.Group className="mb-3" controlId="formBasicUsername">
+                        <Form.Label>ชื่อผู้ใช้</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Username"
+                            placeholder="กรอกชื่อผู้ใช้"
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)} // ใช้ setUsername แทน setEmail
-                            required
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                     </Form.Group>
-
-                    <Form.Group controlId="formPassword">
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>รหัสผ่าน</Form.Label>
                         <Form.Control
                             type="password"
                             placeholder="กรอกรหัสผ่าน"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            required
                         />
                     </Form.Group>
-                    {error && <div style={{ color: 'red' }}>{error}</div>} {/* แสดง error ถ้ามี */}
                     <Button variant="primary" type="submit" disabled={isLoading}>
                         {isLoading ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ'}
                     </Button>

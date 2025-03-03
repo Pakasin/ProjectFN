@@ -1,96 +1,24 @@
-/* กำหนดให้ html และ body มีความสูงเต็มหน้าจอ */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-/* เพิ่ม min-height ให้ body เพื่อให้เนื้อหาหลักขยายเต็มพื้นที่ */
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding-bottom: 60px; /* ปรับค่าให้เหมาะสมกับความสูงของแถบ Support */
+    padding-bottom: 60px;
     box-sizing: border-box;
 }
 
-/* สไตล์สำหรับ Navbar */
-.custom-navbar {
-    background: linear-gradient(135deg, #6a1b9a, #8e24aa) !important; /* Gradient สีม่วง */
-    padding: 15px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative; /* เพิ่ม position เพื่อป้องกันการขัดแย้ง */
-    z-index: 999; /* z-index น้อยกว่าแถบ Support */
-}
-
-.custom-navbar .navbar-brand {
-    font-weight: bold;
-    font-size: 1.7rem;
-    color: #fff !important;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-.custom-navbar .nav-link {
-    font-size: 1.2rem;
-    color: white !important;
-    transition: color 0.3s ease-in-out;
-}
-
-.custom-navbar .nav-link:hover {
-    color: #ffeb3b !important; /* สีเหลืองเมื่อโฮเวอร์ */
-}
-
-/* สไตล์สำหรับ Modal */
-.custom-modal .modal-content {
-    border-radius: 15px;
-    background: linear-gradient(135deg, #fff, #f3e5f5);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-}
-
-.custom-modal .modal-header {
-    border-bottom: none;
-    background-color: #6a1b9a;
-    color: white;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-}
-
-.custom-modal .modal-title {
-    font-weight: bold;
-    font-size: 1.5rem;
-}
-
-/* ปุ่ม Login */
-.login-submit-button {
-    background: linear-gradient(135deg, #4caf50, #388e3c);
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    padding: 10px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    width: 100%;
-}
-
-.login-submit-button:hover {
-    background: linear-gradient(135deg, #388e3c, #2e7d32);
-    transform: scale(1.05);
-}
-
-/* สไตล์สำหรับสไลด์ */
+/* สไลด์อัตโนมัติ */
 .login-slider {
     padding: 30px;
     max-width: 1200px;
     margin: auto;
     text-align: center;
     flex: 1; /* ให้เนื้อหาหลักขยายเต็มพื้นที่ */
-}
-
-.slider-title {
-    font-size: 2.2rem;
-    font-weight: bold;
-    color: #6a1b9a;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .swiper-container {
@@ -122,16 +50,6 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.slide-text {
-    font-size: 1.3rem;
-    margin-top: 12px;
-    color: #333;
-    font-weight: bold;
-}
-
-/* Footer */
-
-
 /* แถบ Support */
 .custom-support {
     position: fixed;
@@ -141,8 +59,8 @@ body {
     background: linear-gradient(135deg, #8e24aa, #6a1b9a);
     color: white;
     text-align: center;
-    padding: 15px 0; /* เพิ่ม padding เพื่อให้มีระยะห่างจากขอบล่าง */
+    padding: 15px 0;
     font-size: 1rem;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000; /* ให้แถบ Support อยู่ด้านบนสุด */
+    z-index: 999; /* ให้แถบ Support อยู่ด้านล่าง Navbar */
 }
