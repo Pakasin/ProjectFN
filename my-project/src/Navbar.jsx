@@ -44,7 +44,7 @@ const CustomNavbar = () => {
 
     return (
         <>
-            <Navbar bg="dark" expand="lg" variant="dark" className="custom-navbar fixed-top">
+            <Navbar bg="dark" expand="lg" variant="dark" className="custom-navbar ">
                 <Navbar.Brand as={Link} to="/">FN Badminton</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
