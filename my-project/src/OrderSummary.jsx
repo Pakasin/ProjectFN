@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import './Or.css';
 const OrderSummary = () => {
   const [orderDetails, setOrderDetails] = useState(null);
 
