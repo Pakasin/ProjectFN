@@ -1,0 +1,99 @@
+/* สไตล์พื้นฐานของ Navbar */
+.custom-navbar {
+    background-color: #343a40; /* สีพื้นหลังเทาเข้ม */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เงาเบาๆ เพื่อความลึก */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* ทำให้การเปลี่ยนแปลงสีลื่นไหล */
+}
+
+.custom-navbar .navbar-brand {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.custom-navbar .navbar-brand:hover {
+    color: #ff6f61; /* เปลี่ยนสีเมื่อ hover */
+}
+
+/* สไตล์ Nav Links */
+.custom-navbar .nav-link {
+    color: #fff !important;
+    font-size: 1.1rem;
+    margin: 0 10px;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link:focus {
+    color: #ff6f61 !important; /* เปลี่ยนสีเมื่อ hover หรือ focus */
+}
+
+/* เพิ่มการแสดงผลของ Tooltip */
+.tooltip-inner {
+    background-color: #ff6f61; /* สีพื้นหลังของ tooltip */
+    color: white; /* สีของข้อความใน tooltip */
+}
+
+/* สไตล์สำหรับการแสดงผลรูปไอคอนใน Nav */
+.custom-navbar .nav-link svg {
+    transition: transform 0.3s ease; /* เพิ่มแอนิเมชั่นให้ไอคอน */
+}
+
+.custom-navbar .nav-link:hover svg,
+.custom-navbar .nav-link:focus svg {
+    transform: scale(1.2); /* ขยายขนาดไอคอนเมื่อ hover */
+}
+
+/* สไตล์ของ Navbar ในมือถือ */
+@media (max-width: 992px) {
+    .custom-navbar .navbar-collapse {
+        background-color: #343a40;
+        padding-top: 20px;
+    }
+
+    .custom-navbar .navbar-toggler {
+        border-color: #ff6f61; /* เปลี่ยนสีของปุ่ม toggle */
+    }
+
+    .custom-navbar .navbar-toggler-icon {
+        background-color: #ff6f61; /* เปลี่ยนสีไอคอน toggle */
+    }
+}
+
+/* เพิ่มความสวยงามของปุ่ม LoginModal */
+.login-modal .modal-content {
+    border-radius: 15px; /* มุมโค้ง */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-modal .modal-header {
+    border-bottom: 2px solid #ff6f61;
+}
+
+.login-modal .modal-footer {
+    border-top: 2px solid #ff6f61;
+}
+
+/* สไตล์ของปุ่ม Submit ใน LoginModal */
+.login-modal .btn-primary {
+    background-color: #ff6f61;
+    border-color: #ff6f61;
+    transition: background-color 0.3s ease;
+}
+
+.login-modal .btn-primary:hover {
+    background-color: #e35d54;
+    border-color: #e35d54;
+}
+
+/* ปรับขนาดของไอคอนใน Navbar */
+.custom-navbar .nav-link svg {
+    transition: all 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover svg {
+    transform: scale(1.1); /* เพิ่มขนาดของไอคอนเมื่อ hover */
+}
