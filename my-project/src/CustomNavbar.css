@@ -1,39 +1,48 @@
 /* สไตล์พื้นฐานของ Navbar */
+body {
+    margin: 0;
+    padding-top: 80px; /* เพิ่มระยะห่างจาก Navbar */
+}
 .custom-navbar {
-    background-color: #343a40; /* สีพื้นหลังเทาเข้ม */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เงาเบาๆ เพื่อความลึก */
+    background-color: #212529; /* สีพื้นหลังเทาเข้มที่มีความลึก */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เงาเบาๆ เพื่อความลึก */
     transition: background-color 0.3s ease, box-shadow 0.3s ease; /* ทำให้การเปลี่ยนแปลงสีลื่นไหล */
+    display: flex;
+    position: fixed; /* ทำให้ Navbar อยู่ที่ตำแหน่งคงที่ */
+    top: 0; /* อยู่ที่ด้านบนของหน้าจอ */
+    width: 100%; /* ให้ความกว้างเต็มหน้าจอ */
+    z-index:9999 ; /* ให้อยู่เหนือเนื้อหาทั้งหมด */
 }
 
 .custom-navbar .navbar-brand {
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
-    font-size: 1.5rem;
-    color: #fff;
+    font-size: 1.6rem;
+    color: #f1c40f; /* สีทองเพื่อเพิ่มความโดดเด่น */
     transition: color 0.3s ease;
 }
 
 .custom-navbar .navbar-brand:hover {
-    color: #ff6f61; /* เปลี่ยนสีเมื่อ hover */
+    color: #f39c12; /* เปลี่ยนเป็นสีทองเข้มเมื่อ hover */
 }
 
 /* สไตล์ Nav Links */
 .custom-navbar .nav-link {
-    color: #fff !important;
-    font-size: 1.1rem;
-    margin: 0 10px;
-    padding: 10px;
+    color: #ecf0f1 !important; /* สีเทาขาวอ่อน เพื่อความเข้ากันได้ */
+    font-size: 1.2rem;
+    margin: 0 12px;
+    padding: 12px;
     transition: color 0.3s ease;
 }
 
 .custom-navbar .nav-link:hover,
 .custom-navbar .nav-link:focus {
-    color: #ff6f61 !important; /* เปลี่ยนสีเมื่อ hover หรือ focus */
+    color: #3498db !important; /* สีฟ้าเพื่อเน้นตอน hover หรือ focus */
 }
 
 /* เพิ่มการแสดงผลของ Tooltip */
 .tooltip-inner {
-    background-color: #ff6f61; /* สีพื้นหลังของ tooltip */
+    background-color: #3498db; /* สีฟ้าเข้มสำหรับ tooltip */
     color: white; /* สีของข้อความใน tooltip */
 }
 
@@ -45,48 +54,50 @@
 .custom-navbar .nav-link:hover svg,
 .custom-navbar .nav-link:focus svg {
     transform: scale(1.2); /* ขยายขนาดไอคอนเมื่อ hover */
+    color: #3498db; /* เปลี่ยนสีไอคอนเมื่อ hover */
 }
 
 /* สไตล์ของ Navbar ในมือถือ */
 @media (max-width: 992px) {
     .custom-navbar .navbar-collapse {
-        background-color: #343a40;
+        background-color: #2c3e50; /* สีพื้นหลังในมือถือ */
         padding-top: 20px;
     }
 
     .custom-navbar .navbar-toggler {
-        border-color: #ff6f61; /* เปลี่ยนสีของปุ่ม toggle */
+        border-color: #3498db; /* สีของปุ่ม toggle */
     }
 
     .custom-navbar .navbar-toggler-icon {
-        background-color: #ff6f61; /* เปลี่ยนสีไอคอน toggle */
+        background-color: #3498db; /* สีไอคอน toggle */
     }
 }
 
 /* เพิ่มความสวยงามของปุ่ม LoginModal */
 .login-modal .modal-content {
-    border-radius: 15px; /* มุมโค้ง */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px; /* มุมโค้งน้อยลงเพื่อให้ดูทันสมัย */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* เพิ่มเงาเบาๆ เพื่อความลึก */
 }
 
 .login-modal .modal-header {
-    border-bottom: 2px solid #ff6f61;
+    border-bottom: 2px solid #3498db;
+    color: #2c3e50; /* สีข้อความใน header */
 }
 
 .login-modal .modal-footer {
-    border-top: 2px solid #ff6f61;
+    border-top: 2px solid #3498db;
 }
 
 /* สไตล์ของปุ่ม Submit ใน LoginModal */
 .login-modal .btn-primary {
-    background-color: #ff6f61;
-    border-color: #ff6f61;
+    background-color: #3498db;
+    border-color: #3498db;
     transition: background-color 0.3s ease;
 }
 
 .login-modal .btn-primary:hover {
-    background-color: #e35d54;
-    border-color: #e35d54;
+    background-color: #2980b9;
+    border-color: #2980b9;
 }
 
 /* ปรับขนาดของไอคอนใน Navbar */

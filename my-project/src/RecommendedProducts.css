@@ -1,0 +1,102 @@
+/* ใช้ id เฉพาะเจาะจง เพื่อไม่ให้กระทบไฟล์อื่น */
+#recommended-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#recommended-section .recommended-title {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#recommended-section .products-horizontal-scroll {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* จัดให้อยู่ตรงกลาง */
+    gap: 20px;
+    padding: 10px;
+}
+
+#recommended-section .product-box {
+    width: 90%; /* ปรับให้กว้างขึ้น */
+    max-width: 800px; /* ปรับให้ไม่กว้างเกินไป */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* จัดให้อยู่กึ่งกลาง */
+    padding: 15px;
+}
+
+#recommended-section .product-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ปรับรูปให้อยู่ตรงกลางและใหญ่ขึ้น */
+#recommended-section .product-image {
+    width: 100%;
+    max-width: 250px; /* ปรับขนาดรูป */
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+#recommended-section .product-details {
+    padding: 15px;
+    text-align: center;
+}
+
+#recommended-section .product-name {
+    font-size: 18px;
+    color: #333;
+    margin: 10px 0;
+}
+
+#recommended-section .product-brand {
+    font-size: 16px;
+    color: #666;
+    margin: 0 0 10px;
+}
+
+#recommended-section .price-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+#recommended-section .original-price {
+    font-size: 16px;
+    color: #999;
+    text-decoration: line-through;
+    margin: 0;
+}
+
+#recommended-section .discounted-price {
+    font-size: 18px;
+    color: #e74c3c;
+    font-weight: bold;
+    margin: 0;
+}
+
+#recommended-section .product-date {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+}
