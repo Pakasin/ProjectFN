@@ -3,114 +3,66 @@ import { useNavigate } from "react-router-dom";
 import "./Ch.css"; // ปรับให้ใช้ CSS ที่เหมาะสม
 
 export default function Cart() {
-  const [cart, setCart] = useState([]);
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [phone, setPhone] = useState("");
-  const [totalAmount, setTotalAmount] = useState(0);
-  const navigate = useNavigate();
+  const [cart, setCart] = useState([]);  // เก็บข้อมูลสินค้าที่อยู่ในตะกร้า
+  const [totalAmount, setTotalAmount] = useState(0);  // ราคารวม
+  const navigate = useNavigate(); // ใช้สำหรับการนำทางไปยังหน้าอื่น
 
+  // ดึงข้อมูลตะกร้าจาก localStorage หรือเซ็ตเป็นอาร์เรย์ว่างถ้าไม่มีข้อมูล
   useEffect(() => {
-    // ดึงข้อมูลตะกร้าจาก localStorage หรือเซ็ตเป็นอาร์เรย์ว่างถ้าไม่มีข้อมูล
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(savedCart);
-    
-    if (savedCart.length > 0) {
-      // คำนวณราคาสินค้ารวมในตะกร้า
-      const total = savedCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-      setTotalAmount(total);
-    }
+    calculateTotal(savedCart);
   }, []);
 
-  const updateCartTotal = (updatedCart) => {
-    const total = updatedCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  // คำนวณราคารวมของตะกร้า
+  const calculateTotal = (cartItems) => {
+    const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     setTotalAmount(total);
   };
 
+  // ฟังก์ชันเพิ่มจำนวนสินค้าในตะกร้า
   const increaseQuantity = (id) => {
     const updatedCart = cart.map(item =>
       item.id === id ? { ...item, quantity: item.quantity + 1 } : item
     );
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    updateCartTotal(updatedCart);
+    updateCart(updatedCart);
   };
 
+  // ฟังก์ชันลดจำนวนสินค้าในตะกร้า
   const decreaseQuantity = (id) => {
     const updatedCart = cart.map(item =>
-      item.id === id && item.quantity > 1
-        ? { ...item, quantity: item.quantity - 1 }
-        : item
+      item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
     );
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    updateCartTotal(updatedCart);
+    updateCart(updatedCart);
   };
 
+  // ฟังก์ชันลบสินค้าจากตะกร้า
   const removeItem = (id) => {
     const updatedCart = cart.filter(item => item.id !== id);
-    setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    updateCartTotal(updatedCart);
+    updateCart(updatedCart);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // อัพเดตข้อมูลใน localStorage และสถานะของตะกร้า
+  const updateCart = (updatedCart) => {
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    calculateTotal(updatedCart);
+  };
 
-    // ตรวจสอบข้อมูลที่กรอก
-    if (!name || !address || !phone || !postalCode) {
-      alert("กรุณากรอกข้อมูลให้ครบถ้วน!");
-      return;
-    }
-
+  // ฟังก์ชันยืนยันการชำระเงิน (ไม่ต้องติดต่อกับเซิร์ฟเวอร์)
+  const handleCheckout = () => {
     if (cart.length === 0) {
-      alert("ตะกร้าสินค้าไม่มีสินค้า");
-      return;
+      alert("ตะกร้าของคุณว่างเปล่า กรุณาเพิ่มสินค้าก่อนดำเนินการชำระเงิน");
+      return; // ถ้าตะกร้าว่าง จะไม่ดำเนินการ
     }
 
-    // ตรวจสอบหมายเลขโทรศัพท์ที่กรอก
-    const phoneRegex = /^[0-9]{10}$/;
-    if (!phoneRegex.test(phone)) {
-      alert("กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง");
-      return;
-    }
+    // แค่แสดงข้อมูลการสั่งซื้อ ไม่ต้องส่งไปยังเซิร์ฟเวอร์
+    const orderDetails = { cart, totalAmount };
 
-    const orderDetails = {
-      name,
-      address,
-      postalCode,
-      phone,
-      cart,
-      totalAmount,
-    };
+    console.log("Order Details: ", orderDetails);  // Log ข้อมูลการสั่งซื้อเพื่อการดีบั๊ก
 
-    console.log("Cart items being sent:", cart);
-
-    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
-
-    // การยืนยันคำสั่งซื้อ
-    fetch("http://localhost:8080/api/checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(orderDetails),  // ส่งข้อมูลการยืนยัน
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          alert("การสั่งซื้อสำเร็จ! ขอบคุณที่สั่งซื้อสินค้ากับเรา");
-          localStorage.removeItem("cart"); // ลบข้อมูลใน Local Storage
-          navigate("/order-summary");
-        } else {
-          alert("เกิดข้อผิดพลาด: " + data.message);
-        }
-      })
-      .catch((error) => {
-        console.error("Error during the request:", error);
-        alert("เกิดข้อผิดพลาดในการติดต่อกับเซิร์ฟเวอร์");
-      });
+    // นำทางไปยังหน้า Checkout โดยไม่ต้องติดต่อกับเซิร์ฟเวอร์
+    navigate("/checkout");
   };
 
   return (
@@ -144,25 +96,8 @@ export default function Cart() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="form-container">
-        <div className="form-field">
-          <label htmlFor="name">ชื่อผู้สั่งซื้อ</label>
-          <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-        </div>
-        <div className="form-field">
-          <label htmlFor="address">ที่อยู่</label>
-          <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} required />
-        </div>
-        <div className="form-field">
-          <label htmlFor="postalCode">รหัสไปรษณีย์</label>
-          <input type="text" id="postalCode" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required />
-        </div>
-        <div className="form-field">
-          <label htmlFor="phone">เบอร์โทรศัพท์</label>
-          <input type="tel" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-        </div>
-        <button type="submit" className="submit-btn">ยืนยันการชำระเงิน</button>
-      </form>
+      {/* ปุ่มยืนยันการชำระเงิน */}
+      <button onClick={handleCheckout} className="submit-btn">ยืนยันการชำระเงิน</button>
     </div>
   );
 }

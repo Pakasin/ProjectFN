@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Or.css';
+
 const OrderSummary = () => {
   const [orderDetails, setOrderDetails] = useState(null);
 
   useEffect(() => {
+    // ดึงข้อมูลคำสั่งซื้อจาก localStorage
     const savedOrderDetails = JSON.parse(localStorage.getItem('orderDetails'));
     setOrderDetails(savedOrderDetails);
   }, []);

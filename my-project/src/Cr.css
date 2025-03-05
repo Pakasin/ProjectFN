@@ -1,127 +1,256 @@
-/* รวมพื้นหลังและการจัดการกับตะกร้า */
-.cart-container {
-  background-color: #f5f5f5; /* สีพื้นหลังให้ตะกร้า */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+/* ใช้ฟอนต์สไตล์หรูหราจาก Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Open+Sans:wght@400;600&family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
-.cart-content {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.cart-items {
-  list-style: none;
-  padding: 0;
+/* กำหนดฟอนต์หลัก */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f7f7f7;
   margin: 0;
+  padding: 0;
+  color: #333;
+  box-sizing: border-box;
 }
 
+/* ตะกร้าสินค้า */
+.cart-container {
+  background-color: #ffffff;
+  padding: 50px 80px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 50px auto;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* แค่โฮเวอร์เพื่อทำให้ตะกร้าสินค้าดูโดดเด่น */
+.cart-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+}
+
+/* หัวข้อ "ตะกร้าสินค้า" */
+.cart-container h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 50px;
+  font-weight: 700;
+  color: #ff4081;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  font-style: italic;
+}
+
+/* รายการสินค้าในตะกร้า */
 .cart-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
-  padding: 10px;
-  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* เพิ่มแสงสะท้อนและทำให้รูปสินค้าขยายขณะโฮเวอร์ */
+.cart-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
 }
 
 .cart-item-left {
-  flex: 1;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
 }
 
 .cart-item-image {
-  width: 80px; /* ขนาดรูปพอดี */
-  height: 80px;
+  width: 110px;
+  height: 110px;
   object-fit: cover;
-  margin-right: 15px;
+  border-radius: 10px;
+  margin-right: 20px;
+  transition: all 0.3s ease;
+}
+
+.cart-item-left:hover .cart-item-image {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .cart-item-right {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-grow: 2;
 }
 
+.cart-item-right h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.cart-item-right p {
+  font-size: 18px;
+  color: #777;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* เพิ่มสีราคาสินค้าให้ดูโดดเด่น */
+.cart-item-right .total-price {
+  font-size: 24px;
+  color: #ff4081;
+  font-weight: 600;
+  text-align: right;
+  margin-top: 15px;
+  transition: color 0.3s ease;
+}
+
+/* ปุ่มเพิ่ม/ลด/ลบ จำนวนสินค้า */
 .quantity-controls {
   display: flex;
+  gap: 10px;
+  justify-content: center;
   align-items: center;
-  margin-top: 10px;
 }
 
-.quantity-btn {
-  background-color: #4CAF50;
+.quantity-btn, .remove-btn {
+  background-color: #ff4081;
   color: white;
   border: none;
-  padding: 5px 10px;
-  font-size: 16px;
+  padding: 12px 28px;
+  font-size: 18px;
+  border-radius: 30px;
   cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.quantity-btn:hover {
-  background-color: #45a049;
+.quantity-btn:hover, .remove-btn:hover {
+  background-color: #f50057;
+  transform: scale(1.1);
 }
 
 .remove-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  margin-top: 10px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.remove-btn:hover {
   background-color: #e53935;
 }
 
-.total-price {
-  text-align: right;
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
+.remove-btn:hover {
+  background-color: #d32f2f;
 }
 
+/* ปุ่มชำระเงิน */
 .checkout-btn {
   display: inline-block;
-  background-color: #2196F3;
+  background-color: #00bcd4;
   color: white;
-  padding: 10px 20px;
-  margin-top: 20px;
+  padding: 16px 32px;
+  margin-top: 40px;
   text-decoration: none;
-  font-size: 18px;
-  border-radius: 5px;
+  font-size: 22px;
+  border-radius: 30px;
   text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .checkout-btn:hover {
-  background-color: #0b7dda;
+  background-color: #0097a7;
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
-/* ปรับสไตล์ปุ่ม "กลับไปที่หน้าแรก" */
+
+/* ฟอร์มกรอกข้อมูลการสั่งซื้อ */
+.form-container {
+  background-color: #ffffff;
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+  transition: all 0.3s ease;
+}
+
+.form-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.form-field {
+  margin-bottom: 25px;
+}
+
+.form-field label {
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  font-size: 18px;
+  color: #555;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-field input:focus {
+  outline: none;
+  border-color: #ff4081;
+  box-shadow: 0 0 12px rgba(255, 64, 129, 0.2);
+}
+
+/* ปุ่มยืนยันการชำระเงิน */
+.submit-btn {
+  display: inline-block;
+  background-color: #ff4081;
+  color: white;
+  padding: 16px 35px;
+  margin-top: 30px;
+  text-decoration: none;
+  font-size: 24px;
+  border-radius: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:hover {
+  background-color: #f50057;
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* ปุ่มกลับไปหน้าแรก */
 .go-home-btn {
   display: inline-block;
-  background-color: #ff9800; /* สีส้ม */
+  background-color: #ff9800;
   color: white;
-  padding: 10px 20px;
-  margin-top: 20px;
+  padding: 18px 35px;
+  margin-top: 40px;
   text-decoration: none;
-  font-size: 18px;
-  border-radius: 5px;
+  font-size: 24px;
+  border-radius: 30px;
   text-align: center;
   width: 100%;
-  max-width: 200px;
-  margin: 20px auto;
-  text-align: center;
+  max-width: 300px;
+  margin: 30px auto;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .go-home-btn:hover {
   background-color: #f57c00;
+  transform: scale(1.05);
 }

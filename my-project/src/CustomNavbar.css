@@ -9,9 +9,8 @@ body {
     transition: background-color 0.3s ease, box-shadow 0.3s ease; /* ทำให้การเปลี่ยนแปลงสีลื่นไหล */
     display: flex;
     position: fixed; /* ทำให้ Navbar อยู่ที่ตำแหน่งคงที่ */
-    top: 0; /* อยู่ที่ด้านบนของหน้าจอ */
     width: 100%; /* ให้ความกว้างเต็มหน้าจอ */
-    z-index:9999 ; /* ให้อยู่เหนือเนื้อหาทั้งหมด */
+    
 }
 
 .custom-navbar .navbar-brand {

@@ -1,0 +1,174 @@
+/* กำหนดพื้นฐานสำหรับหน้าชำระเงิน */
+.checkout-container {
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+/* รายการสินค้าในตะกร้า */
+.cart-summary {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 12px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.cart-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+.product-details h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.product-details p {
+    margin: 5px 0;
+    color: #777;
+}
+
+.total {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: right;
+    color: #333;
+}
+
+.total strong {
+    color: #4CAF50;
+}
+
+/* ฟอร์มกรอกข้อมูล */
+.checkout-form .form-field {
+    margin-bottom: 25px;
+}
+
+.checkout-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.checkout-form input {
+    width: 100%;
+    padding: 14px;
+    margin-top: 5px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.checkout-form input:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* ปุ่มยืนยันการชำระเงิน */
+.submit-btn {
+    width: 100%;
+    padding: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+.submit-btn:active {
+    background-color: #3e8e41;
+}
+
+/* เพิ่มความสวยงามให้กับข้อความแจ้งเตือน */
+.alert {
+    padding: 12px;
+    margin-bottom: 25px;
+    background-color: #f44336;
+    color: white;
+    font-weight: bold;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.alert.success {
+    background-color: #4CAF50;
+}
+
+.alert.info {
+    background-color: #2196F3;
+}
+
+.order-success-message {
+    background: linear-gradient(135deg, #28a745, #4CAF50);
+    color: white;
+    padding: 12px 24px; /* ปรับขนาด padding */
+    border-radius: 12px; /* ขอบมน */
+    text-align: center;
+    font-size: 16px; /* ขนาดฟอนต์ที่เหมาะสม */
+    font-weight: 600; /* เพิ่มน้ำหนักตัวอักษร */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* เงาที่ใหญ่ขึ้น */
+    position: fixed;
+    top: 20px; /* ขยับให้ห่างจากขอบบน */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeIn 1s forwards, pulse 1.5s infinite alternate;
+    z-index: 1000;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-40px) translateX(-50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) translateX(-50%);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
